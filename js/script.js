@@ -36,6 +36,7 @@ getUsers().then((data) => {
   showUsers(data);
 });
 
+//display user's posts
 function getUserPosts(id) {
   fetch(`https://jsonplaceholder.typicode.com/users/${id}/posts`)
     .then((response) => response.json())
@@ -44,7 +45,7 @@ function getUserPosts(id) {
         let postsHtml = '';
         posts.forEach((post) => {
           postsHtml += `
-         <div class="post-card" id="post-card">
+         <div class="post-card">
           <h2>
               ${post.title}
           </h2>
@@ -54,7 +55,7 @@ function getUserPosts(id) {
       </div>
       `;
         });
-        document.getElementById('post-card').innerHTML = postsHtml;
+        document.getElementById('post-container').innerHTML = postsHtml;
       }
       usersPosts.style.display = 'block';
     });
@@ -85,5 +86,12 @@ function filterUsers(users, searchText) {
     return filteredUsers;
   } else {
     return users;
+  }
+}
+
+//close user's post
+window.onclick = function(event) {
+  if (event.target == usersPosts) {
+    usersPosts.style.display = "none";
   }
 }
